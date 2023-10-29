@@ -62,22 +62,50 @@ class TicTacToe
         @done
     end
 
+    def checkResponse
+        if (@response != "x" && @response != "o") 
+            puts "retry, input x or o"
+        end
+    end
+
+
     def eachTurn
         gameDone
         while @done == false
             puts "\n\nBoard: "
             printBoard
+            
             puts "\nEnter x or o\n"
-            response = gets.chomp
+            @response = gets.chomp
+            # p @response != "x" && @response != "o"
+            checkResponse
+
+            until (@response == "x" || @response == "o")
+                @response = gets.chomp
+                checkResponse
+            end
 
             puts "\nWhere do you want to put this? (row)\n"
             row = gets.chomp.to_i - 1
-
+    
             puts "\nWhere do you want to put this? (column)\n\n"
             column = gets.chomp.to_i - 1
+        
 
-            @board[row][column] = response
+            if (@board[row][column] == "x" || @board[row][column] == "o")
+                until (@board[row][column] != "x" && @board[row][column] != "o")
+                    puts "\nThat spot is taken! Try again...\n"
+                    puts "\nWhere do you want to put this? (row)\n"
+                    row = gets.chomp.to_i - 1
             
+                    puts "\nWhere do you want to put this? (column)\n\n"
+                    column = gets.chomp.to_i - 1
+                end
+            end
+
+            @board[row][column] = @response unless (@board[row][column] == "x" || @board[row][column] == "o")
+            
+
             gameDone
         end
         printBoard
