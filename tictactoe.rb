@@ -18,34 +18,42 @@ class TicTacToe
     def checkWinner
         # check columns
         if @board[0][0] != " " && @board[0][0] == @board[1][0] && @board[1][0] == @board[2][0]
+            printBoard
             puts "\n#{@board[0][0]} wins!"
             @done = true
         elsif @board[0][1] != " " && @board[0][1] == @board [1][1] && @board[1][1] == @board[2][1]
+            printBoard
             puts "\n#{@board[0][1]} wins!"
             @done = true
         elsif @board[0][2] != " " && @board[0][2] == @board [1][2] && @board[1][2] == @board[2][2]
+            printBoard
             puts "\n#{@board[0][2]} wins!"
             @done = true
 
         # check rows
         elsif @board[0][0] != " " && @board[0][0] == @board [0][1] && @board[0][1] == @board[0][2]
+            printBoard
             puts "\n#{@board[0][0]} wins!"
             @done = true
 
         elsif @board[1][0] != " " && @board[1][0] == @board [1][1] && @board[1][1] == @board[1][2]
+            printBoard
             puts "\n#{@board[1][0]} wins!"
             @done = true
 
         elsif @board[2][0] != " " && @board[2][0] == @board [2][1] && @board[2][1] == @board[2][2]
+            printBoard
             puts "\n#{@board[2][0]} wins!"
             @done = true
 
         # check diagonals
         elsif @board[0][0] != " " && @board[0][0] == @board [1][1] && @board[1][1] == @board[2][2]
+            printBoard
             puts "\n#{@board[0][0]} wins!"
             @done = true
 
         elsif @board[0][2] != " " && @board[0][2] == @board [1][1] && @board[1][1] == @board[2][0]
+            printBoard
             puts "\n#{@board[0][2]} wins!"
             @done = true
         end
@@ -68,6 +76,14 @@ class TicTacToe
         end
     end
 
+    def inputPosition
+        puts "\nWhere do you want to put this? (row)\n"
+        @row = gets.chomp.to_i - 1
+
+        puts "\nWhere do you want to put this? (column)\n\n"
+        @column = gets.chomp.to_i - 1
+    end
+
 
     def eachTurn
         gameDone
@@ -84,31 +100,22 @@ class TicTacToe
                 @response = gets.chomp
                 checkResponse
             end
-
-            puts "\nWhere do you want to put this? (row)\n"
-            row = gets.chomp.to_i - 1
-    
-            puts "\nWhere do you want to put this? (column)\n\n"
-            column = gets.chomp.to_i - 1
         
+            inputPosition
 
-            if (@board[row][column] == "x" || @board[row][column] == "o")
-                until (@board[row][column] != "x" && @board[row][column] != "o")
+            if (@board[@row][@column] == "x" || @board[@row][@column] == "o")
+                until (@board[@row][@column] != "x" && @board[@row][@column] != "o")
                     puts "\nThat spot is taken! Try again...\n"
-                    puts "\nWhere do you want to put this? (row)\n"
-                    row = gets.chomp.to_i - 1
-            
-                    puts "\nWhere do you want to put this? (column)\n\n"
-                    column = gets.chomp.to_i - 1
+
+                    inputPosition
                 end
             end
 
-            @board[row][column] = @response unless (@board[row][column] == "x" || @board[row][column] == "o")
+            @board[@row][@column] = @response unless (@board[@row][@column] == "x" || @board[@row][@column] == "o")
             
 
             gameDone
         end
-        printBoard
     end
 end
 
