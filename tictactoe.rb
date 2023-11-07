@@ -84,25 +84,16 @@ class TicTacToe
         @column = gets.chomp.to_i - 1
     end
 
-
     def eachTurn
         gameDone
         while @done == false
             puts "\n\nBoard: "
             printBoard
-            
-            puts "\nEnter x or o\n"
-            @response = gets.chomp
-            # p @response != "x" && @response != "o"
-            checkResponse
 
-            until (@response == "x" || @response == "o")
-                @response = gets.chomp
-                checkResponse
-            end
-        
+
+            # Player 1 / X
+            puts "\nPlayer 1's Turn! Where would you like X to go?"
             inputPosition
-
             if (@board[@row][@column] == "x" || @board[@row][@column] == "o")
                 until (@board[@row][@column] != "x" && @board[@row][@column] != "o")
                     puts "\nThat spot is taken! Try again...\n"
@@ -111,12 +102,35 @@ class TicTacToe
                 end
             end
 
-            @board[@row][@column] = @response unless (@board[@row][@column] == "x" || @board[@row][@column] == "o")
-            
-
+            @board[@row][@column] = "x" unless (@board[@row][@column] == "x" || @board[@row][@column] == "o")
             gameDone
+            printBoard
+
+
+            # Player 2 / O
+            puts "\Player 2's Turn! Where would you like O to go?"
+            inputPosition
+            if (@board[@row][@column] == "x" || @board[@row][@column] == "o")
+                until (@board[@row][@column] != "x" && @board[@row][@column] != "o")
+                    puts "\nThat spot is taken! Try again...\n"
+
+                    inputPosition
+                end
+            end
+
+            @board[@row][@column] = "o" unless (@board[@row][@column] == "x" || @board[@row][@column] == "o")
+            gameDone
+            printBoard
+
+
+
+
+
         end
+
+
     end
+
 end
 
 game = TicTacToe.new
